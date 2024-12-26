@@ -18,7 +18,10 @@ class _FacilitiesUpdateScreenState extends State<FacilitiesUpdateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Facility"),
+        title: Text(
+          "Facilities Update",
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
       body: Column(
@@ -54,7 +57,7 @@ class _FacilitiesUpdateScreenState extends State<FacilitiesUpdateScreen> {
                       '${currentIndex + 1} / ${widget.facilityUpdate.facility_images.length}',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -64,7 +67,6 @@ class _FacilitiesUpdateScreenState extends State<FacilitiesUpdateScreen> {
             ),
           ),
           Container(
-            width: double.infinity,
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
               border: Border(
@@ -74,8 +76,25 @@ class _FacilitiesUpdateScreenState extends State<FacilitiesUpdateScreen> {
                 ),
               ),
             ),
-            child: Center(
-              child: Text(widget.facilityUpdate.facility_name),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(widget.facilityUpdate.facility_icon),
+                SizedBox(width: 10),
+                Center(
+                    child: Text(
+                  widget.facilityUpdate.facility_name,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                )),
+                SizedBox(width: 10),
+                widget.facilityUpdate.facility_icon2 != null
+                    ? Image.asset(
+                        widget.facilityUpdate.facility_icon2!,
+                      )
+                    : SizedBox.shrink(),
+              ],
             ),
           ),
           Expanded(
@@ -86,7 +105,7 @@ class _FacilitiesUpdateScreenState extends State<FacilitiesUpdateScreen> {
                     widget.facilityUpdate.facility_descriptions.length - 1;
 
                 return Container(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     border: isLastDescription
                         ? null
@@ -99,6 +118,8 @@ class _FacilitiesUpdateScreenState extends State<FacilitiesUpdateScreen> {
                   ),
                   child: Text(
                     widget.facilityUpdate.facility_descriptions[index],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(letterSpacing: 1.5),
                   ),
                 );
               },
