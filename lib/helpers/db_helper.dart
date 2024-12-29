@@ -448,7 +448,7 @@ class DbHelper {
   }
 
   static Future<List<Map<String, dynamic>>> fetchBuildings() async {
-    final db = await DbHelper.openDb();
+    var db = await DbHelper.openDb();
     return db.rawQuery("SELECT * FROM $buildingTb");
   }
 
@@ -469,5 +469,165 @@ class DbHelper {
 
     return db.rawQuery(
         "SELECT $amenitiesName, $amenityQuantity FROM $roomAmenitiesTb INNER JOIN $amenitiesTb ON $roomAmenitiesTb.$amenitiesIdFk = $amenitiesTb.$amenitiesId WHERE $roomIdFk = ${roomId}");
+  }
+
+  static Future<List<Map<String, dynamic>>> searchBuilding(
+      String searchKey) async {
+    var db = await DbHelper.openDb();
+
+    return db.rawQuery('''
+    SELECT DISTINCT 
+        $buildingTb.$buildingId, 
+        $buildingTb.$buildingName, 
+        $buildingTb.$buildingImage
+    FROM $buildingTb
+    LEFT JOIN $floorTb ON $buildingTb.$buildingId = $floorTb.$buildingIdFk
+    LEFT JOIN $roomTb ON $floorTb.$floorId = $roomTb.$floorIdFk
+    WHERE $buildingTb.$buildingName LIKE '%$searchKey%' 
+      OR $roomTb.$roomNumber LIKE '%$searchKey%'
+  ''');
+  }
+
+  static Future<List<Map<String, dynamic>>> fetchFloorsAndRooms(
+    int buildingId, {
+    String searchFloorNumber = "",
+    Map<String, dynamic>? filters,
+  }) async {
+    var db = await DbHelper.openDb();
+
+    String query = '''
+    SELECT DISTINCT
+        $floorTb.$floorId,
+        $floorTb.$floorNumber,
+        $roomTb.$roomId,
+        $roomTb.$roomNumber,
+        $roomTb.$roomImage,
+        $roomTb.$roomCapacity,
+        $roomTb.$roomType,
+        $roomTb.$isUsable,
+        $roomTb.$isAvailable
+    FROM 
+        $floorTb
+    LEFT JOIN 
+        $roomTb
+    ON 
+        $floorTb.$floorId = $roomTb.$floorIdFk
+    LEFT JOIN 
+        $roomAmenitiesTb 
+    ON 
+        $roomTb.$roomId = $roomAmenitiesTb.$roomIdFk
+    LEFT JOIN 
+        $amenitiesTb 
+    ON 
+        $roomAmenitiesTb.$amenitiesIdFk = $amenitiesTb.$amenitiesId
+    WHERE 
+        $floorTb.$buildingIdFk = $buildingId
+    ''';
+
+    if (searchFloorNumber.isNotEmpty) {
+      query += '''
+      AND 
+        $roomTb.$roomNumber LIKE '%$searchFloorNumber%'
+      ''';
+    }
+
+    List availabilityFilter = [];
+    List amenitiesFilter = [];
+    List roomTypeFilter = [];
+    List locationFilter = [];
+    List capacityFilter = [];
+
+    if (filters != null) {
+      if (filters['isAvailable'] == true) {
+        availabilityFilter.add("$roomTb.$isAvailable = 1");
+      }
+      if (filters['isOccupied'] == true) {
+        availabilityFilter.add("$roomTb.$isAvailable = 0");
+      }
+      if (filters['hasProjector'] == true) {
+        amenitiesFilter.add("$amenitiesTb.$amenitiesName = 'Projector'");
+      }
+      if (filters['hasSmartTv'] == true) {
+        amenitiesFilter.add("$amenitiesTb.$amenitiesName = 'Smart TV'");
+      }
+      if (filters['hasElectricFan'] == true) {
+        amenitiesFilter.add("$amenitiesTb.$amenitiesName = 'Electric Fan'");
+      }
+      if (filters['hasAircon'] == true) {
+        amenitiesFilter.add("$amenitiesTb.$amenitiesName = 'Aircon'");
+      }
+      if (filters['hasChair'] == true) {
+        amenitiesFilter.add("$amenitiesTb.$amenitiesName = 'Chairs'");
+      }
+      if (filters['hasTable'] == true) {
+        amenitiesFilter.add("$amenitiesTb.$amenitiesName = 'Tables'");
+      }
+      if (filters['hasBoard'] == true) {
+        amenitiesFilter.add("$amenitiesTb.$amenitiesName = 'Board'");
+      }
+      if (filters['hasPc'] == true) {
+        amenitiesFilter.add("$amenitiesTb.$amenitiesName = 'PCs'");
+      }
+      if (filters['hasAppleMacPro'] == true) {
+        amenitiesFilter.add("$amenitiesTb.$amenitiesName = 'Apple Mac Pro'");
+      }
+      if (filters['isOpenArea'] == true) {
+        roomTypeFilter.add("$roomTb.$roomType = 'open area'");
+      }
+      if (filters['isLaboratory'] == true) {
+        roomTypeFilter.add("$roomTb.$roomType = 'laboratory'");
+      }
+      if (filters['isLecture'] == true) {
+        roomTypeFilter.add("$roomTb.$roomType = 'lecture'");
+      }
+      if (filters['isGroundFloor'] == true) {
+        locationFilter.add("$floorTb.$floorNumber = 0");
+      }
+      if (filters['isFirstFloor'] == true) {
+        locationFilter.add("$floorTb.$floorNumber = 1");
+      }
+      if (filters['isSecondFloor'] == true) {
+        locationFilter.add("$floorTb.$floorNumber = 2");
+      }
+      if (filters['isThirdFloor'] == true) {
+        locationFilter.add("$floorTb.$floorNumber = 3");
+      }
+      if (filters['isFourthFloor'] == true) {
+        locationFilter.add("$floorTb.$floorNumber = 4");
+      }
+      if (filters['isSmallRoom'] == true) {
+        capacityFilter.add("$roomTb.$roomCapacity BETWEEN 1 AND 39");
+      }
+      if (filters['isMediumRoom'] == true) {
+        capacityFilter.add("$roomTb.$roomCapacity BETWEEN 40 AND 49");
+      }
+      if (filters['isLargeRoom'] == true) {
+        capacityFilter.add("$roomTb.$roomCapacity >= 50");
+      }
+    }
+
+    if (availabilityFilter.isNotEmpty) {
+      query += 'AND (${availabilityFilter.join(" OR ")})';
+    }
+    if (amenitiesFilter.isNotEmpty) {
+      query +=
+          'AND (${amenitiesFilter.join(" OR ")}) AND $roomAmenitiesTb.$amenitiesIsAvailable = 1';
+    }
+    if (roomTypeFilter.isNotEmpty) {
+      query += 'AND (${roomTypeFilter.join(" OR ")})';
+    }
+    if (locationFilter.isNotEmpty) {
+      query += 'AND (${locationFilter.join(" OR ")})';
+    }
+    if (capacityFilter.isNotEmpty) {
+      query += 'AND (${capacityFilter.join(" OR ")})';
+    }
+
+    query += '''
+      ORDER BY 
+        $floorTb.$floorNumber, $roomTb.$roomNumber
+    ''';
+
+    return db.rawQuery(query);
   }
 }

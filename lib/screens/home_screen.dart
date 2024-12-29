@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/data/facilities_updates.dart';
 import 'package:myapp/helpers/db_helper.dart';
+import 'package:myapp/screens/account_screen.dart';
 import 'package:myapp/screens/building_information_screen.dart';
+import 'package:myapp/screens/building_search_screen.dart';
 import 'package:myapp/screens/facilities_update_screen.dart';
-import 'package:myapp/screens/test_panorama.dart';
+import 'package:myapp/screens/introduction_screen.dart';
+import 'package:myapp/screens/qr_scanner_screen.dart';
+import 'package:myapp/screens/settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -16,13 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final double originalMapWidth = 341.0;
   final double originalMapHeight = 485.0;
 
-  late Future<List<Map<String, dynamic>>> buildingsFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    buildingsFuture = DbHelper.fetchBuildings();
-  }
+  var searchKey = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => TestPanorama(),
+                    builder: (_) => IntroductionScreen(),
                   ),
                 );
               },
@@ -59,6 +57,16 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             TextField(
+              controller: searchKey,
+              onSubmitted: (String searchKey) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => BuildingSearchScreen(
+                      searchKey: searchKey,
+                    ),
+                  ),
+                );
+              },
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: "Search...",
@@ -99,6 +107,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     );
                                   }
 
+                                  if (!snapshot.hasData ||
+                                      snapshot.data == null ||
+                                      (snapshot.data as List).isEmpty) {
+                                    return Center(
+                                      child: Text(''),
+                                    );
+                                  }
+
                                   final buildings = snapshot.data!;
 
                                   return Stack(
@@ -108,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         int y = building[DbHelper.buildingY];
                                         String buildingName =
                                             building[DbHelper.buildingName]
-                                                as String;
+                                                .toString();
 
                                         return Positioned(
                                           left: x *
@@ -158,36 +174,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                               ),
                             ),
-                            // Positioned.fill(
-                            //   bottom: 108 *
-                            //       (MediaQuery.of(context).size.height /
-                            //           originalMapHeight),
-                            //   left: 62 *
-                            //       (MediaQuery.of(context).size.width /
-                            //           originalMapWidth),
-                            //   child: Transform.rotate(
-                            //     angle: 9 * 3.1415927 / 180,
-                            //     child: GestureDetector(
-                            //       onTap: () {
-                            //         print("building is clicked");
-                            //         Navigator.of(context).push(
-                            //           MaterialPageRoute(
-                            //             builder: (_) => searchRoom(),
-                            //           ),
-                            //         );
-                            //       },
-                            //       child: Container(
-                            //         height: 73 *
-                            //             (MediaQuery.of(context).size.width /
-                            //                 originalMapHeight),
-                            //         width: 16 *
-                            //             (MediaQuery.of(context).size.height /
-                            //                 originalMapWidth),
-                            //         color: Color(0xAA000000),
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),
@@ -251,6 +237,83 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       );
                     },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => AccountScreen(),
+                  ),
+                );
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.home,
+                    color: Colors.black,
+                  ),
+                  Text(
+                    "Account",
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => QrScannerScreen(),
+                  ),
+                );
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.home,
+                    color: Colors.black,
+                  ),
+                  Text(
+                    "QR Code",
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => SettingsScreen(),
+                  ),
+                );
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.home,
+                    color: Colors.black,
+                  ),
+                  Text(
+                    "Settings",
+                    style: TextStyle(color: Colors.black),
                   ),
                 ],
               ),

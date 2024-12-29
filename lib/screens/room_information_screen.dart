@@ -25,7 +25,8 @@ class _RoomInformationScreenState extends State<RoomInformationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.roomNumber),
+        title: Text(widget.roomNumber, style: TextStyle(fontWeight: FontWeight.bold),),
+        centerTitle: true,
       ),
       body: widget.roomImage == null
           ? Center(
@@ -42,16 +43,35 @@ class _RoomInformationScreenState extends State<RoomInformationScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Room Conditition"),
-                    Text(widget.isUsable == 1
-                        ? "Good to Use"
-                        : "Not Good to Use"),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text("Room Conditition", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(widget.isUsable == 1
+                          ? "Good to Use"
+                          : "Not Good to Use", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                    ),
                   ],
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Amenities"),
+                    Center(
+                      child: Container(
+                        width: 370,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 0.5
+                          )
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text("Amenities", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                    ),
                     FutureBuilder(
                       future: DbHelper.fetchAmenities(widget.roomId),
                       builder: (_, snapshot) {
@@ -66,20 +86,26 @@ class _RoomInformationScreenState extends State<RoomInformationScreen> {
 
                         return Container(
                           width: MediaQuery.of(context).size.width,
-                          child: Wrap(
-                            spacing: 10,
-                            runSpacing: 10,
-                            children: amenities.map(
-                              (amenity) {
-                                return Container(
-                                  padding: EdgeInsets.all(10),
-                                  color: Color(0xFFCFCFCF),
-                                  child: Text(
-                                    "${amenity[DbHelper.amenityQuantity]} ${amenity[DbHelper.amenitiesName]}",
-                                  ),
-                                );
-                              },
-                            ).toList(),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Wrap(
+                              spacing: 15,
+                              runSpacing: 10,
+                              children: amenities.map(
+                                (amenity) {
+                                  return Container(
+                                    padding: EdgeInsets.all(10),
+                                    color: Color(0xFFCFCFCF),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        "${amenity[DbHelper.amenityQuantity]} ${amenity[DbHelper.amenitiesName]}",
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).toList(),
+                            ),
                           ),
                         );
                       },
