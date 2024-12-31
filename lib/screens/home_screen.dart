@@ -245,6 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       bottomNavigationBar: Container(
+        color: Color(0xFF042075),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -260,13 +261,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    Icons.home,
-                    color: Colors.black,
+                    Icons.person,
+                    color: Colors.white,
                   ),
                   Text(
                     "Account",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                   ),
                 ],
@@ -284,13 +285,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    Icons.home,
-                    color: Colors.black,
+                    Icons.qr_code_2,
+                    color: Colors.white,
                   ),
                   Text(
                     "QR Code",
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                   ),
                 ],
@@ -308,12 +309,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    Icons.home,
-                    color: Colors.black,
+                    Icons.settings,
+                    color: Colors.white,
                   ),
                   Text(
                     "Settings",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ],
               ),

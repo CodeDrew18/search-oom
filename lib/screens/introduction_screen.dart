@@ -17,6 +17,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           AspectRatio(
             aspectRatio: 3 / 2,
@@ -33,49 +34,70 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 });
               },
               children: [
-                Column(
-                  children: [
-                    AspectRatio(
-                      aspectRatio: 3 / 2,
-                      child: Image.asset(
-                        "assets/images/introduction/introduction_1.png",
-                        fit: BoxFit.cover,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 18.0, left: 18, right: 18),
+                  child: Column(
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 3 / 2,
+                        child: Image.asset(
+                          "assets/images/introduction/introduction_1.png",
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    Text(
-                        "Quickly locate an available classroom for your next lecture or seminar, ensuring a seamless teaching experience."),
-                  ],
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Text(textAlign: TextAlign.center,
+                          "Quickly locate an available classroom for your next lecture or seminar, ensuring a seamless teaching experience.", 
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                          ),
+                    ],
+                  ),
                 ),
-                Column(
-                  children: [
-                    AspectRatio(
-                      aspectRatio: 3 / 2,
-                      child: Image.asset(
-                        "assets/images/introduction/introduction_2.png",
-                        fit: BoxFit.cover,
+                Padding(
+                  padding:  const EdgeInsets.only(bottom: 18.0, left: 18, right: 18),
+                  child: Column(
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 3 / 2,
+                        child: Image.asset(
+                          "assets/images/introduction/introduction_2.png",
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    Text(
-                        "Easily find open lecture rooms, perfectly suited for your class schedule and student capacity."),
-                  ],
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Text(textAlign: TextAlign.center,
+                          "Easily find open lecture rooms, perfectly suited for your class schedule and student capacity.",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),),
+                    ],
+                  ),
                 ),
-                Column(
-                  children: [
-                    AspectRatio(
-                      aspectRatio: 3 / 2,
-                      child: Image.asset(
-                        "assets/images/introduction/introduction_3.png",
-                        fit: BoxFit.cover,
+                Padding(
+                  padding:  const EdgeInsets.only(bottom: 18.0, left: 18, right: 18),
+                  child: Column(
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 3 / 2,
+                        child: Image.asset(
+                          "assets/images/introduction/introduction_3.png",
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    Text(
-                        "Ensure you have the right room, available at the right time, for your lessons with real-time room availability updates."),
-                  ],
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Text(textAlign: TextAlign.center,
+                          "Ensure you have the right room, available at the right time, for your lessons with real-time room availability updates.",style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),),
+                    ],
+                  ),
                 ),
               ],
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
@@ -101,22 +123,32 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               ),
             ],
           ),
-          ElevatedButton(
-            onPressed: () {
-              if (currentImageIndex < 2) {
-                imageCtrl.nextPage(
-                  duration: Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                );
-              } else {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => HomeScreen(),
-                  ),
-                );
-              }
-            },
-            child: Text(currentImageIndex < 2 ? "Next" : "Get Started"),
+          Padding(
+            padding: const EdgeInsets.only(top: 18, left: 18, right: 18),
+            child: ElevatedButton(
+              onPressed: () {
+                if (currentImageIndex < 2) {
+                  imageCtrl.nextPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                } else {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => HomeScreen(),
+                    ),
+                  );
+                }
+              },
+              child: Text(currentImageIndex < 2 ? "Next" : "Get Started"),
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+                
+              ), fixedSize: Size.fromHeight(50),
+              backgroundColor: Color(0xFF042075),
+              foregroundColor: Colors.white
+            ),),
           ),
           TextButton(
             onPressed: currentImageIndex < 2

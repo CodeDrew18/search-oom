@@ -2,7 +2,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DbHelper {
-  static const String dbName = 'searchoommmmmm.db';
+  static const String dbName = 'searchoommmmmmm.db';
   static const int dbVersion = 1;
 
   static const String buildingTb = "building";
@@ -38,6 +38,12 @@ class DbHelper {
   static const String roomIdFk = "room_id";
   static const String amenityQuantity = "quantity";
   static const String amenitiesIsAvailable = "is_amenities_available";
+
+  static const String userTb = "user";
+  static const String userId = "user_id";
+  static const String userEmail = "user_email";
+  static const String userPassword = "user_password";
+  static const String userPicture = "user_picture";
 
   static Future<Database> openDb() async {
     var path = join(await getDatabasesPath(), dbName);
@@ -92,6 +98,15 @@ class DbHelper {
             $amenitiesIsAvailable INTEGER NOT NULL,
             FOREIGN KEY ($amenitiesIdFk) REFERENCES $amenitiesTb ($amenitiesId),
             FOREIGN KEY ($roomIdFk) REFERENCES $roomTb ($roomId)
+          )
+        ''');
+
+        db.execute('''
+          CREATE TABLE IF NOT EXISTS $userTb (
+            $userId INTEGER PRIMARY KEY AUTOINCREMENT,
+            $userEmail VARCHAR(255) NOT NULL,
+            $userPassword VARCHAR(255) NOT NULL,
+            $userPicture TEXT NOT NULL
           )
         ''');
 
@@ -629,5 +644,9 @@ class DbHelper {
     ''';
 
     return db.rawQuery(query);
+  }
+
+  static void insertUser(String email, String password, String picture) {
+    
   }
 }

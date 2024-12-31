@@ -3,6 +3,7 @@ import 'package:myapp/screens/home_screen.dart';
 import 'package:myapp/screens/splashscreen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(Main());
 }
 

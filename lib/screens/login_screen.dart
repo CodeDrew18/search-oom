@@ -22,67 +22,85 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             AspectRatio(
-              aspectRatio: 3 / 2,
+              aspectRatio: 2 / 1,
               child: Image.asset("assets/images/logo/logo_dark.png"),
             ),
-            Text("Login with email address"),
-            TextField(
-              controller: emailCtrl,
-              onChanged: (value) {
-                setState(() {});
-              },
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.email),
-                suffixIcon: emailCtrl.text.isEmpty
-                    ? null
-                    : IconButton(
-                        onPressed: () {
-                          setState(() {
-                            emailCtrl.clear();
-                          });
-                        },
-                        icon: Icon(Icons.cancel),
-                      ),
+            Text("Login with email address", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: TextField(
+                controller: emailCtrl,
+                onChanged: (value) {
+                  setState(() {});
+                },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.email),
+                  suffixIcon: emailCtrl.text.isEmpty
+                      ? null
+                      : IconButton(
+                          onPressed: () {
+                            setState(() {
+                              emailCtrl.clear();
+                            });
+                          },
+                          icon: Icon(Icons.cancel),
+                        ),
+                ),
               ),
             ),
-            TextField(
-              controller: passwordCtrl,
-              obscureText: showPassword ? true : false,
-              onChanged: (value) {
-                setState(() {});
-              },
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.lock),
-                suffixIcon: passwordCtrl.text.isEmpty
-                    ? null
-                    : showPassword
-                        ? IconButton(
-                            onPressed: () {
-                              setState(() {
-                                showPassword = !showPassword;
-                              });
-                            },
-                            icon: Icon(Icons.visibility_off),
-                          )
-                        : IconButton(
-                            onPressed: () {
-                              setState(() {
-                                showPassword = !showPassword;
-                              });
-                            },
-                            icon: Icon(Icons.visibility),
-                          ),
+            Padding(
+              padding: const EdgeInsets.only(left: 18.0, right: 18,bottom: 20),
+              child: TextField(
+                controller: passwordCtrl,
+                obscureText: showPassword ? true : false,
+                onChanged: (value) {
+                  setState(() {});
+                },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.lock),
+                  suffixIcon: passwordCtrl.text.isEmpty
+                      ? null
+                      : showPassword
+                          ? IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  showPassword = !showPassword;
+                                });
+                              },
+                              icon: Icon(Icons.visibility_off),
+                            )
+                          : IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  showPassword = !showPassword;
+                                });
+                              },
+                              icon: Icon(Icons.visibility),
+                            ),
+                ),
               ),
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("Login"),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0, left: 18, right: 18),
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text("Login"),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4)
+                ),
+                 fixedSize: Size.fromHeight(50),
+              backgroundColor: Color(0xFF042075),
+              foregroundColor: Colors.white
+              ),),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Don’t have an account?"),
                 TextButton(
