@@ -4,6 +4,7 @@ import 'package:myapp/screens/splashscreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
   runApp(Main());
 }
 
@@ -13,7 +14,7 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -2,7 +2,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DbHelper {
-  static const String dbName = 'searchoommmmmmm.db';
+  static const String dbName = 'searchoommmmmmmmm.db';
   static const int dbVersion = 1;
 
   static const String buildingTb = "building";
@@ -41,6 +41,8 @@ class DbHelper {
 
   static const String userTb = "user";
   static const String userId = "user_id";
+  static const String userFirstName = "user_first_name";
+  static const String userLastName = "user_last_name";
   static const String userEmail = "user_email";
   static const String userPassword = "user_password";
   static const String userPicture = "user_picture";
@@ -100,11 +102,12 @@ class DbHelper {
             FOREIGN KEY ($roomIdFk) REFERENCES $roomTb ($roomId)
           )
         ''');
-
         db.execute('''
           CREATE TABLE IF NOT EXISTS $userTb (
             $userId INTEGER PRIMARY KEY AUTOINCREMENT,
             $userEmail VARCHAR(255) NOT NULL,
+            $userFirstName VARCHAR(255) NOT NULL,
+            $userLastName VARCHAR(255) NOT NULL,
             $userPassword VARCHAR(255) NOT NULL,
             $userPicture TEXT NOT NULL
           )
@@ -646,7 +649,31 @@ class DbHelper {
     return db.rawQuery(query);
   }
 
-  static void insertUser(String email, String password, String picture) {
-    
+  static Future<List<Map<String, dynamic>>> fetchUsers(
+      {String email = "", String password = ""}) async {
+    var db = await DbHelper.openDb();
+
+    String query = "SELECT * FROM $userTb";
+
+    if (email != "") {
+      query += " WHERE $userEmail = '$email'";
+    }
+
+    if (email != "" && password != "") {
+      query += " AND $userPassword = '$password'";
+    }
+
+    return db.rawQuery(query);
+  }
+
+  static void insertUser(String email, String firstName, String lastName,
+      String password, String picture) async {
+    var db = await DbHelper.openDb();
+    var id = await db.rawInsert(
+        "INSERT INTO $userTb VALUES(NULL, '$email', '$firstName', '$lastName', '$password', '$picture')");
+
+    print(id);
+
+    await db.close();
   }
 }

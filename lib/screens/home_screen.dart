@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/data/facilities_updates.dart';
 import 'package:myapp/helpers/db_helper.dart';
+import 'package:myapp/helpers/utils.dart';
 import 'package:myapp/screens/account_screen.dart';
 import 'package:myapp/screens/building_information_screen.dart';
 import 'package:myapp/screens/building_search_screen.dart';
+import 'package:myapp/screens/display_qr.dart';
 import 'package:myapp/screens/facilities_update_screen.dart';
 import 'package:myapp/screens/introduction_screen.dart';
 import 'package:myapp/screens/qr_scanner_screen.dart';
@@ -40,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => IntroductionScreen(),
+                    builder: (_) => DisplayQr(),
                   ),
                 );
               },
