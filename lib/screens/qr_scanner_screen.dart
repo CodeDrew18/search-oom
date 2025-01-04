@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/helpers/utils.dart';
 import 'package:myapp/screens/login_screen.dart';
 import 'package:myapp/screens/room_reservation_screen.dart';
-import 'package:myapp/signuptest.dart';
+import 'package:myapp/screens/signup_screen.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class QrScannerScreen extends StatefulWidget {
@@ -16,6 +16,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
   bool isLoggedIn = false;
   String? userName;
   String? userEmail;
+  bool isProcessing = false;
 
   @override
   void initState() {
@@ -47,11 +48,40 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(""),
+        title: Text(
+          "Scan QR Code",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
       ),
       body: isLoggedIn == false
           ? Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                SizedBox(height: 35),
+                CircleAvatar(
+                  radius: 35,
+                  child: Text("G"),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  "Guest",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                  child: Center(
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      "The Features can only access when you are now member of the Search’oom",
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
                   child: ElevatedButton(
@@ -103,16 +133,28 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
             )
           : MobileScanner(
               onDetect: (capture) {
+                if (isProcessing) return;
+                setState(() {
+                  isProcessing = true;
+                });
+
                 final List<Barcode> barcodes = capture.barcodes;
                 for (final barcode in barcodes) {
                   final String? data = barcode.rawValue;
                   if (data != null) {
-                    // Show the extracted roomId
-                    Navigator.of(context).push(
+                    Navigator.of(context)
+                        .push(
                       MaterialPageRoute(
                         builder: (_) => RoomReservationScreen(roomNumber: data),
                       ),
-                    );
+                    )
+                        .then((_) {
+                      // Reset the flag when returning to this screen
+                      setState(() {
+                        isProcessing = false;
+                      });
+                    });
+                    break; // Process only the first detected barcode
                   }
                 }
               },

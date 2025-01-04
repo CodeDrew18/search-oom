@@ -51,10 +51,13 @@ class _AccountScreenState extends State<AccountScreen> {
         ),
         centerTitle: true,
       ),
-      body: isLoggedIn
+      body: isLoggedIn == true
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                SizedBox(
+                  height: 35,
+                ),
                 CircleAvatar(
                   radius: 40,
                   child: Text(
@@ -66,28 +69,33 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
                 SizedBox(height: 20),
                 Text(
+                  textAlign: TextAlign.center,
                   userName ?? "User",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 5),
                 Text(
+                  textAlign: TextAlign.center,
                   userEmail ?? "",
                   style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
-                SizedBox(height: 30),
-                ElevatedButton(
-                  onPressed: logout,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
-                    fixedSize: Size(200, 50),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                    onPressed: logout,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF042075),
+                      foregroundColor: Colors.white,
+                      fixedSize: Size(200, 50),
+                    ),
+                    child: Text("Logout"),
                   ),
-                  child: Text("Logout"),
                 ),
               ],
             )
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+          : ListView(
+              // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(height: 35),
                 CircleAvatar(
@@ -110,14 +118,26 @@ class _AccountScreenState extends State<AccountScreen> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 25,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
                   child: ElevatedButton(
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
+                    onPressed: () async {
+                      final result =
+                          await Navigator.of(context).push(MaterialPageRoute(
                         builder: (_) => SignupScreen(),
-                      ),
-                    ),
+                      ));
+
+                      if (result != null && result.isNotEmpty) {
+                        setState(() {
+                          isLoggedIn = result[0];
+                          userName = result[1];
+                          userEmail = result[2];
+                        });
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(7)),

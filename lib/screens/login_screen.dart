@@ -15,7 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   var emailCtrl = TextEditingController();
   var passwordCtrl = TextEditingController();
 
-  bool showPassword = false;
+  bool showPassword = true;
 
   @override
   Widget build(BuildContext context) {

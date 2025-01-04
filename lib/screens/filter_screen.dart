@@ -94,381 +94,416 @@ class _FilterScreenState extends State<FilterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Filter"),
+        title: Text("Filter", style: TextStyle(fontWeight: FontWeight.bold),),
+        centerTitle: true,
       ),
-      body: ListView(
-        children: [
-          Text("Availability"),
-          Wrap(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          children: [
+            Text("Availability", style: TextStyle(fontWeight: FontWeight.bold)),
+            Wrap(
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: isAvailable,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isAvailable = value!;
+                        });
+                      },
+                    ),
+                    Text("Available"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: isOccupied,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isOccupied = value!;
+                        });
+                      },
+                    ),
+                    Text("Occupied"),
+                  ],
+                ),
+              ],
+            ),
+            Text("Amenities", style: TextStyle(fontWeight: FontWeight.bold)),
+            Wrap(
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: hasProjector,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          hasProjector = value!;
+                        });
+                      },
+                    ),
+                    Text("Projector"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: hasSmartTv,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          hasSmartTv = value!;
+                        });
+                      },
+                    ),
+                    Text("Smart TV"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: hasElectricFan,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          hasElectricFan = value!;
+                        });
+                      },
+                    ),
+                    Text("Electric Fan"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: hasAircon,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          hasAircon = value!;
+                        });
+                      },
+                    ),
+                    Text("Aircon"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: hasChair,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          hasChair = value!;
+                        });
+                      },
+                    ),
+                    Text("Chair"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: hasTable,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          hasTable = value!;
+                        });
+                      },
+                    ),
+                    Text("Table"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: hasBoard,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          hasBoard = value!;
+                        });
+                      },
+                    ),
+                    Text("Board"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: hasPc,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          hasPc = value!;
+                        });
+                      },
+                    ),
+                    Text("PCs"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: hasAppleMacPro,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          hasAppleMacPro = value!;
+                        });
+                      },
+                    ),
+                    Text("Apple Mac Pro"),
+                  ],
+                ),
+              ],
+            ),
+            Text("Room Type", style: TextStyle(fontWeight: FontWeight.bold)),
+            Wrap(
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: isOpenArea,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isOpenArea = value!;
+                        });
+                      },
+                    ),
+                    Text("Open Area"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: isLaboratory,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isLaboratory = value!;
+                        });
+                      },
+                    ),
+                    Text("Laboratory"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: isLecture,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isLecture = value!;
+                        });
+                      },
+                    ),
+                    Text("Lecture"),
+                  ],
+                ),
+              ],
+            ),
+            Text("Location", style: TextStyle(fontWeight: FontWeight.bold)),
+            Wrap(
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: isGroundFloor,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isGroundFloor = value!;
+                        });
+                      },
+                    ),
+                    Text("Ground Floor"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: isFirstFloor,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isFirstFloor = value!;
+                        });
+                      },
+                    ),
+                    Text("1st Floor"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: isSecondFloor,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isSecondFloor = value!;
+                        });
+                      },
+                    ),
+                    Text("2nd Floor"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: isThirdFloor,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isThirdFloor = value!;
+                        });
+                      },
+                    ),
+                    Text("3rd Floor"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: isFourthFloor,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isFourthFloor = value!;
+                        });
+                      },
+                    ),
+                    Text("4th Floor"),
+                  ],
+                ),
+              ],
+            ),
+              Text("Capacity", style: TextStyle(fontWeight: FontWeight.bold)),
+              Wrap(
                 children: [
-                  Checkbox(
-                    value: isAvailable,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isAvailable = value!;
+                  Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: isSmallRoom,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isSmallRoom = value!;
+                        });
+                      },
+                    ),
+                    Text("Small Room"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: isMediumRoom,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isMediumRoom = value!;
+                        });
+                      },
+                    ),
+                    Text("Medium Room"),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: isLargeRoom,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          isLargeRoom = value!;
+                        });
+                      },
+                    ),
+                    Text("Large Room"),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 60,
+                  width: 100,
+                  child: ElevatedButton(
+                    onPressed: () => resetFilters(),
+                    child: Text("Reset", style: TextStyle(color: Colors.black),),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  side: BorderSide(
+                    color: Colors.black,
+                    width: 2
+                  )
+                  ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  height: 60,
+                  width: 190,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop({
+                        'isAvailable': isAvailable,
+                        'isOccupied': isOccupied,
+                        'hasProjector': hasProjector,
+                        'hasSmartTv': hasSmartTv,
+                        'hasElectricFan': hasElectricFan,
+                        'hasAircon': hasAircon,
+                        'hasChair': hasChair,
+                        'hasTable': hasTable,
+                        'hasBoard': hasBoard,
+                        'hasPc': hasPc,
+                        'hasAppleMacPro': hasAppleMacPro,
+                        'isOpenArea': isOpenArea,
+                        'isLaboratory': isLaboratory,
+                        'isLecture': isLecture,
+                        'isGroundFloor': isGroundFloor,
+                        'isFirstFloor': isFirstFloor,
+                        'isSecondFloor': isSecondFloor,
+                        'isThirdFloor': isThirdFloor,
+                        'isFourthFloor': isFourthFloor,
+                        'isSmallRoom': isSmallRoom,
+                        'isMediumRoom': isMediumRoom,
+                        'isLargeRoom': isLargeRoom,
                       });
                     },
-                  ),
-                  Text("Available"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: isOccupied,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isOccupied = value!;
-                      });
-                    },
-                  ),
-                  Text("Occupied"),
-                ],
-              ),
-            ],
-          ),
-          Text("Amenities"),
-          Wrap(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: hasProjector,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        hasProjector = value!;
-                      });
-                    },
-                  ),
-                  Text("Projector"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: hasSmartTv,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        hasSmartTv = value!;
-                      });
-                    },
-                  ),
-                  Text("Smart TV"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: hasElectricFan,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        hasElectricFan = value!;
-                      });
-                    },
-                  ),
-                  Text("Electric Fan"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: hasAircon,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        hasAircon = value!;
-                      });
-                    },
-                  ),
-                  Text("Aircon"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: hasChair,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        hasChair = value!;
-                      });
-                    },
-                  ),
-                  Text("Chair"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: hasTable,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        hasTable = value!;
-                      });
-                    },
-                  ),
-                  Text("Table"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: hasBoard,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        hasBoard = value!;
-                      });
-                    },
-                  ),
-                  Text("Board"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: hasPc,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        hasPc = value!;
-                      });
-                    },
-                  ),
-                  Text("PCs"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: hasAppleMacPro,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        hasAppleMacPro = value!;
-                      });
-                    },
-                  ),
-                  Text("Apple Mac Pro"),
-                ],
-              ),
-            ],
-          ),
-          Text("Room Type"),
-          Wrap(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: isOpenArea,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isOpenArea = value!;
-                      });
-                    },
-                  ),
-                  Text("Open Area"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: isLaboratory,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isLaboratory = value!;
-                      });
-                    },
-                  ),
-                  Text("Laboratory"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: isLecture,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isLecture = value!;
-                      });
-                    },
-                  ),
-                  Text("Lecture"),
-                ],
-              ),
-            ],
-          ),
-          Text("Location"),
-          Wrap(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: isGroundFloor,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isGroundFloor = value!;
-                      });
-                    },
-                  ),
-                  Text("Ground Floor"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: isFirstFloor,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isFirstFloor = value!;
-                      });
-                    },
-                  ),
-                  Text("1st Floor"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: isSecondFloor,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isSecondFloor = value!;
-                      });
-                    },
-                  ),
-                  Text("2nd Floor"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: isThirdFloor,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isThirdFloor = value!;
-                      });
-                    },
-                  ),
-                  Text("3rd Floor"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: isFourthFloor,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isFourthFloor = value!;
-                      });
-                    },
-                  ),
-                  Text("4th Floor"),
-                ],
-              ),
-            ],
-          ),
-          Text("Capacity"),
-          Wrap(
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: isSmallRoom,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isSmallRoom = value!;
-                      });
-                    },
-                  ),
-                  Text("Small Room"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: isMediumRoom,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isMediumRoom = value!;
-                      });
-                    },
-                  ),
-                  Text("Medium Room"),
-                ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Checkbox(
-                    value: isLargeRoom,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isLargeRoom = value!;
-                      });
-                    },
-                  ),
-                  Text("Large Room"),
-                ],
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: () => resetFilters(),
-                child: Text("Reset"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop({
-                    'isAvailable': isAvailable,
-                    'isOccupied': isOccupied,
-                    'hasProjector': hasProjector,
-                    'hasSmartTv': hasSmartTv,
-                    'hasElectricFan': hasElectricFan,
-                    'hasAircon': hasAircon,
-                    'hasChair': hasChair,
-                    'hasTable': hasTable,
-                    'hasBoard': hasBoard,
-                    'hasPc': hasPc,
-                    'hasAppleMacPro': hasAppleMacPro,
-                    'isOpenArea': isOpenArea,
-                    'isLaboratory': isLaboratory,
-                    'isLecture': isLecture,
-                    'isGroundFloor': isGroundFloor,
-                    'isFirstFloor': isFirstFloor,
-                    'isSecondFloor': isSecondFloor,
-                    'isThirdFloor': isThirdFloor,
-                    'isFourthFloor': isFourthFloor,
-                    'isSmallRoom': isSmallRoom,
-                    'isMediumRoom': isMediumRoom,
-                    'isLargeRoom': isLargeRoom,
-                  });
-                },
-                child: Text("Apply"),
-              ),
-            ],
-          )
-        ],
+                    child: Text("Apply", style: TextStyle(color: Colors.white),)
+                  , style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                  backgroundColor: Color(0xFF042075),
+                  ),),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

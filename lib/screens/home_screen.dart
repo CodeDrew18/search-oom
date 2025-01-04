@@ -10,6 +10,7 @@ import 'package:myapp/screens/facilities_update_screen.dart';
 import 'package:myapp/screens/introduction_screen.dart';
 import 'package:myapp/screens/qr_scanner_screen.dart';
 import 'package:myapp/screens/settings_screen.dart';
+import 'package:myapp/screens/test_wheel.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -42,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => DisplayQr(),
+                    builder: (_) => WheelPickerExample(),
                   ),
                 );
               },

@@ -34,9 +34,9 @@ class _SplashScreenState extends State<SplashScreen> {
         gifPath: 'assets/splashscreen/splash.gif',
         gifWidth: MediaQuery.of(context).size.width,
         gifHeight: MediaQuery.of(context).size.height,
-        nextScreen: isLoggedIn ? HomeScreen() : IntroductionScreen(),
+        nextScreen: isLoggedIn == true ? HomeScreen() : IntroductionScreen(),
         backgroundColor: Color(0xFF042075),
-        duration: Duration(seconds: 14),
+        duration: Duration(seconds: 5),
       ),
     );
   }
